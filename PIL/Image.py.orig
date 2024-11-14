@@ -482,17 +482,14 @@ class Image:
         self.readonly = 0
 
     def _dump(self, file=None, format=None):
-        import tempfile, os
+        import tempfile
         if not file:
-            f, file = tempfile.mkstemp(format or '')
-            os.close(f)
-            
+            file = tempfile.mktemp()
         self.load()
         if not format or format == "PPM":
             self.im.save_ppm(file)
         else:
-            if file.endswith(format):
-                file = file + "." + format
+            file = file + "." + format
             self.save(file, format)
         return file
 
